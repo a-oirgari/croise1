@@ -1,47 +1,55 @@
 main {
   background-image: url(./img/prov.jpg);
   background-position: center;
-  background-size: cover;
+  background-size: 100% 100%;
   background-repeat: no-repeat;
   display: grid;
+  /* grid-template-columns: minmax(345px, 1fr) 135px repeat(2, minmax(95px, 1fr));
+  grid-template-rows: repeat(3, 1fr); */
   width: 100%;
-  gap: 20px;
+  gap: 12px;
+  /* margin-right: 12px; */
+  
   grid-template-areas:
     "zone-conference zone-conference . zone-serveurs zone-securite"
     "zone-reception zone-reception . . . "
-    "zone-reception zone-reception .  zone-personnel  zone-archives ";
+    "zone-reception zone-reception  .  zone-personnel  zone-archives ";
 }
 
 #zone-conference {
   grid-area: zone-conference;
+  background-color: rgba(248, 251, 253,0);
   width: 100%;
 }
-
+span{
+  text-shadow: 2px 2px 10px white;
+}
 #zone-reception {
   grid-area: zone-reception;
-  background-color: rgb(249, 175, 175);
+  background-color: rgba(249, 175, 175, 0);
   width: 100%;
 }
 
 #zone-serveurs {
   grid-area: zone-serveurs;
-  background-color: rgb(249, 175, 175);
+  background-color: rgba(249, 175, 175, 0);
   width: 100%;
 }
 
 #zone-securite {
   grid-area: zone-securite;
-  background-color: rgb(249, 175, 175);
+  background-color: rgba(249, 175, 175, 0);
   width: 100%;
 }
 
 #zone-personnel {
   grid-area: zone-personnel;
+  background-color: rgba(248, 251, 253,0);
   width: 100%;
 }
 
 #zone-archives {
   grid-area: zone-archives;
-  background-color: rgb(249, 175, 175);
+  background-color: rgba(249, 175, 175, 0);
   width: 100%;
 }

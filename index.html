@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <title>Gestion du Personnel</title>
@@ -23,67 +24,61 @@
 
     <ul id="unassignedList" class="flex flex-col gap-2"></ul>
 
-    <button id="openAddModal"
-            class="mt-4 bg-blue-600 text-white py-2 rounded">
+    <button id="openAddModal" class="mt-4 bg-blue-600 text-white py-2 rounded">
       Add New Worker
     </button>
   </aside>
 
-  
-  <main class="relative">
+
+  <main class=" relative">
 
     <!-- Zones positionnées -->
-    <div id="zone-conference"
-         class=" w-[120px] h-[200px] p-2 bg-gray-50 opacity-60 rounded shadow flex flex-col">
-      <div class="flex justify-between items-center">
-        <span class="font-bold text-xs">Conférence</span>
-        <button class="zone-plus text-green-600 font-bold" data-zone="conference">+</button>
-      </div>
+    <div id="zone-conference" class=" rounded shadow flex flex-col justify-center items-center">
       <div class="zone-occupants flex flex-col gap-1"></div>
-    </div>
-    
+      <div class="flex flex-col items-center">
+        <span class="font-bold text-x">Conférence</span>
+        <button class="zone-plus text-blue-700 font-bold text-4xl" data-zone="conference">+</button>
+      </div>
 
-    <div id="zone-reception"
-         class=" w-[120px] h-[260px] p-2 bg-gray-50 opacity-60 rounded shadow flex flex-col">
-      <div class="flex justify-between mb-2">
-        <span class="font-bold text-xs">Réception</span>
-        <button class="zone-plus text-green-600 font-bold" data-zone="reception">+</button>
-      </div>
-      <div class="zone-occupants flex flex-col gap-1"></div>
     </div>
 
-    <div id="zone-serveurs"
-         class=" w-[120px] h-[120px] p-2 bg-gray-50 opacity-60 rounded shadow flex flex-col">
-      <div class="flex justify-between mb-2">
-        <span class="font-bold text-xs">Serveurs</span>
-        <button class="zone-plus text-green-600 font-bold" data-zone="serveurs">+</button>
+
+    <div id="zone-reception" class="rounded shadow flex flex-col justify-center items-center">
+      <div class="flex flex-col items-center mb-2">
+        <span class="font-bold text-x">Réception</span>
+        <button class="zone-plus text-blue-700 font-bold text-4xl" data-zone="reception">+</button>
       </div>
       <div class="zone-occupants flex flex-col gap-1"></div>
     </div>
 
-    <div id="zone-securite"
-         class=" w-[120px] h-[120px] p-2 bg-gray-50 opacity-60 rounded shadow flex flex-col">
-      <div class="flex justify-between mb-2">
-        <span class="font-bold text-xs">Sécurité</span>
-        <button class="zone-plus text-green-600 font-bold" data-zone="securite">+</button>
+    <div id="zone-serveurs" class=" rounded shadow flex flex-col justify-center items-center">
+      <div class="flex flex-col items-center mb-2">
+        <span class="font-bold text-x">Serveurs</span>
+        <button class="zone-plus text-blue-700 font-bold text-4xl" data-zone="serveurs">+</button>
       </div>
       <div class="zone-occupants flex flex-col gap-1"></div>
     </div>
 
-    <div id="zone-personnel"
-         class=" w-[120px] h-[120px] p-2 bg-gray-50 opacity-60 rounded shadow flex flex-col">
-      <div class="flex justify-between mb-2">
-        <span class="font-bold text-xs">Personnel</span>
-        <button class="zone-plus text-green-600 font-bold" data-zone="personnel">+</button>
+    <div id="zone-securite" class=" rounded shadow flex flex-col justify-center items-center">
+      <div class="flex flex-col items-center mb-2">
+        <span class="font-bold text-x">Sécurité</span>
+        <button class="zone-plus text-blue-700 font-bold text-4xl" data-zone="securite">+</button>
       </div>
       <div class="zone-occupants flex flex-col gap-1"></div>
     </div>
 
-    <div id="zone-archives"
-         class=" w-[120px] h-[120px] p-2 bg-gray-50 opacity-60 rounded shadow flex flex-col">
-      <div class="flex justify-between mb-2">
-        <span class="font-bold text-xs">Archives</span>
-        <button class="zone-plus text-green-600 font-bold" data-zone="archives">+</button>
+    <div id="zone-personnel" class=" rounded shadow flex flex-col justify-center items-center">
+      <div class="flex flex-col items-center mb-2">
+        <span class="font-bold text-x">Personnel</span>
+        <button class="zone-plus text-blue-700 font-bold text-4xl" data-zone="personnel">+</button>
+      </div>
+      <div class="zone-occupants flex flex-col gap-1"></div>
+    </div>
+
+    <div id="zone-archives" class="rounded shadow flex flex-col justify-center items-center">
+      <div class="flex flex-col items-center mb-2">
+        <span class="font-bold text-x">Archives</span>
+        <button class="zone-plus text-blue-700 font-bold text-4xl" data-zone="archives">+</button>
       </div>
       <div class="zone-occupants flex flex-col gap-1"></div>
     </div>
@@ -166,10 +161,12 @@
     </div>
   </div>
 
-  
+
   <script src="js/modal.js"></script>
-  
+  <script src="js/staff.js"></script>
+
 
 
 </body>
+
 </html>
