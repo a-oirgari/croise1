@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Gestion du Personnel</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/assets/style.css">
+
+  <style>
+    .required-empty {
+      background-color: #ffe2e2 !important;
+    }
+  </style>
+</head>
+
+<body class="bg-white min-h-screen flex">
+
+  <!-- Sidebar gauche -->
+  <aside class="w-72 bg-gray-100 p-4 border-r flex flex-col">
+    <h2 class="text-xl font-bold mb-3">Unassigned Staff</h2>
+
+    <ul id="unassignedList" class="flex flex-col gap-2"></ul>
+
+    <button id="openAddModal"
+            class="mt-4 bg-blue-600 text-white py-2 rounded">
+      Add New Worker
+    </button>
+  </aside>
+
+  
+  <main class="relative">
+
+    <!-- Zones positionnées -->
+    <div id="zone-conference"
+         class=" w-[120px] h-[200px] p-2 bg-gray-50 opacity-60 rounded shadow flex flex-col">
+      <div class="flex justify-between items-center">
+        <span class="font-bold text-xs">Conférence</span>
+        <button class="zone-plus text-green-600 font-bold" data-zone="conference">+</button>
+      </div>
+      <div class="zone-occupants flex flex-col gap-1"></div>
+    </div>
+    
+
+    <div id="zone-reception"
+         class=" w-[120px] h-[260px] p-2 bg-gray-50 opacity-60 rounded shadow flex flex-col">
+      <div class="flex justify-between mb-2">
+        <span class="font-bold text-xs">Réception</span>
+        <button class="zone-plus text-green-600 font-bold" data-zone="reception">+</button>
+      </div>
+      <div class="zone-occupants flex flex-col gap-1"></div>
+    </div>
+
+    <div id="zone-serveurs"
+         class=" w-[120px] h-[120px] p-2 bg-gray-50 opacity-60 rounded shadow flex flex-col">
+      <div class="flex justify-between mb-2">
+        <span class="font-bold text-xs">Serveurs</span>
+        <button class="zone-plus text-green-600 font-bold" data-zone="serveurs">+</button>
+      </div>
+      <div class="zone-occupants flex flex-col gap-1"></div>
+    </div>
+
+    <div id="zone-securite"
+         class=" w-[120px] h-[120px] p-2 bg-gray-50 opacity-60 rounded shadow flex flex-col">
+      <div class="flex justify-between mb-2">
+        <span class="font-bold text-xs">Sécurité</span>
+        <button class="zone-plus text-green-600 font-bold" data-zone="securite">+</button>
+      </div>
+      <div class="zone-occupants flex flex-col gap-1"></div>
+    </div>
+
+    <div id="zone-personnel"
+         class=" w-[120px] h-[120px] p-2 bg-gray-50 opacity-60 rounded shadow flex flex-col">
+      <div class="flex justify-between mb-2">
+        <span class="font-bold text-xs">Personnel</span>
+        <button class="zone-plus text-green-600 font-bold" data-zone="personnel">+</button>
+      </div>
+      <div class="zone-occupants flex flex-col gap-1"></div>
+    </div>
+
+    <div id="zone-archives"
+         class=" w-[120px] h-[120px] p-2 bg-gray-50 opacity-60 rounded shadow flex flex-col">
+      <div class="flex justify-between mb-2">
+        <span class="font-bold text-xs">Archives</span>
+        <button class="zone-plus text-green-600 font-bold" data-zone="archives">+</button>
+      </div>
+      <div class="zone-occupants flex flex-col gap-1"></div>
+    </div>
+
+  </main>
+
+
+  <!-- MODAL AJOUT EMPLOYÉ -->
+  <div id="addModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4">
+    <div class="bg-white rounded-lg shadow-lg w-full max-w-md p-6 fade-in max-h-[90vh] overflow-auto">
+      <h2 class="text-xl font-semibold mb-3">Ajouter un employé</h2>
+      <form id="addEmployeeForm" class="space-y-3">
+        <div>
+          <label class="text-sm">Nom</label>
+          <input id="name" required class="w-full border p-2 rounded mt-1" />
+        </div>
+        <div>
+          <label class="text-sm">Rôle</label>
+          <select id="role" required class="w-full border p-2 rounded mt-1">
+            <option value="">-- Choisir un rôle --</option>
+            <option>Receptionniste</option>
+            <option>Technicien IT</option>
+            <option>Agent de sécurité</option>
+            <option>Manager</option>
+            <option>Nettoyage</option>
+            <option>Autre</option>
+          </select>
+        </div>
+        <div>
+          <label class="text-sm">Photo (URL)</label>
+          <input id="photo" type="url" class="w-full border p-2 rounded mt-1" />
+          <img id="preview" class="w-24 h-24 object-cover rounded mt-2 hidden" alt="preview" />
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="text-sm">Email</label>
+            <input id="email" type="email" class="w-full border p-2 rounded mt-1" />
+          </div>
+          <div>
+            <label class="text-sm">Téléphone</label>
+            <input id="phone" type="tel" class="w-full border p-2 rounded mt-1" />
+          </div>
+        </div>
+
+        <div>
+          <label class="text-sm">Expériences professionnelles</label>
+          <div id="experiences" class="space-y-2 mt-2 max-h-40 overflow-auto"></div>
+          <div class="flex gap-2 mt-2">
+            <button id="addExp" type="button" class="bg-gray-200 px-2 py-1 rounded">+ Ajouter expérience</button>
+            <button id="clearExps" type="button" class="bg-red-200 px-2 py-1 rounded">Vider</button>
+          </div>
+        </div>
+
+        <div class="flex justify-end gap-2">
+          <button id="cancelAdd" type="button" class="px-3 py-1 rounded bg-gray-200">Annuler</button>
+          <button type="submit" class="px-3 py-1 rounded bg-green-500 text-white">Ajouter</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- MODAL ASSIGNATION -->
+  <div id="assignModal" class="hidden fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center">
+    <div class="bg-white p-4 rounded shadow w-80">
+      <div class="flex justify-between mb-3">
+        <h3 class="font-bold">Affectation</h3>
+        <button id="closeAssign" class="text-red-500 font-bold">X</button>
+      </div>
+      <div id="eligibleList" class="flex flex-col gap-2"></div>
+    </div>
+  </div>
+
+
+  <!-- MODAL PROFIL -->
+  <div id="profileModal" class="hidden fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center">
+    <div class="bg-white p-5 rounded shadow w-[400px]">
+      <button id="closeProfile" class="text-red-500 font-bold float-right">X</button>
+      <div id="profileContent"></div>
+    </div>
+  </div>
+
+  
+  <script src="js/modal.js"></script>
+  
+
+
+</body>
+</html>

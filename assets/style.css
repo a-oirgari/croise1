@@ -1,0 +1,43 @@
+main {
+  background-image: url(./img/prov.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: grid;
+  width: 100%;
+  gap: 20px;
+  grid-template-areas:
+    "zone-conference zone-conference . zone-serveurs zone-securite"
+    "zone-reception zone-reception . . . "
+    "zone-reception zone-reception .  zone-personnel  zone-archives ";
+}
+
+#zone-conference {
+  grid-area: zone-conference;
+  width: 100%;
+}
+
+#zone-reception {
+  grid-area: zone-reception;
+  width: 100%;
+}
+
+#zone-serveurs {
+  grid-area: zone-serveurs;
+  width: 100%;
+}
+
+#zone-securite {
+  grid-area: zone-securite;
+  width: 100%;
+}
+
+#zone-personnel {
+  grid-area: zone-personnel;
+  width: 100%;
+}
+
+#zone-archives {
+  grid-area: zone-archives;
+  width: 100%;
+}
