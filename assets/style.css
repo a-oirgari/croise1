@@ -19,16 +19,19 @@ main {
 
 #zone-reception {
   grid-area: zone-reception;
+  background-color: rgb(249, 175, 175);
   width: 100%;
 }
 
 #zone-serveurs {
   grid-area: zone-serveurs;
+  background-color: rgb(249, 175, 175);
   width: 100%;
 }
 
 #zone-securite {
   grid-area: zone-securite;
+  background-color: rgb(249, 175, 175);
   width: 100%;
 }
 
@@ -39,5 +42,6 @@ main {
 
 #zone-archives {
   grid-area: zone-archives;
+  background-color: rgb(249, 175, 175);
   width: 100%;
 }
