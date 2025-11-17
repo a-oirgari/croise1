@@ -1,4 +1,3 @@
-
 const openAddModalBtn = document.getElementById('openAddModal');
 const addModal = document.getElementById('addModal');
 const cancelAdd = document.getElementById('cancelAdd');
@@ -9,6 +8,7 @@ const experiencesContainer = document.getElementById('experiences');
 const clearExpsBtn = document.getElementById('clearExps');
 
 openAddModalBtn.addEventListener('click', () => addModal.classList.remove('hidden'));
+
 cancelAdd.addEventListener('click', () => {
   addModal.classList.add('hidden');
   document.getElementById('addEmployeeForm').reset();
@@ -29,36 +29,30 @@ function createExperienceNode() {
   const wrapper = document.createElement('div');
   wrapper.className = 'border p-3 rounded-lg space-y-2 bg-gray-50 relative';
 
-  //Company
   const company = document.createElement('input');
   company.type = 'text';
   company.placeholder = "Company";
   company.className = 'w-full border p-2 rounded';
 
-  //Role
   const role = document.createElement('input');
   role.type = 'text';
   role.placeholder = "Role";
   role.className = 'w-full border p-2 rounded';
 
-  //Dates Row 
   const datesRow = document.createElement('div');
   datesRow.className = 'grid grid-cols-2 gap-2';
 
   const from = document.createElement('input');
   from.type = 'date';
-  from.placeholder = "From";
   from.className = 'border p-2 rounded';
 
   const to = document.createElement('input');
   to.type = 'date';
-  to.placeholder = "To";
   to.className = 'border p-2 rounded';
 
   datesRow.appendChild(from);
   datesRow.appendChild(to);
 
-  // Remove button
   const removeBtn = document.createElement('button');
   removeBtn.type = 'button';
   removeBtn.className = 'absolute top-1 right-1 bg-red-300 text-red-800 px-2 py-0.5 rounded text-xs';
@@ -73,9 +67,9 @@ function createExperienceNode() {
   return wrapper;
 }
 
-
-
 addExpBtn.addEventListener('click', () => {
   experiencesContainer.appendChild(createExperienceNode());
 });
 clearExpsBtn.addEventListener('click', () => experiencesContainer.innerHTML = '');
+
+window.createExperienceNode = createExperienceNode;
