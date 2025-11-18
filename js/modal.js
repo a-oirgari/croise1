@@ -17,7 +17,7 @@ cancelAdd.addEventListener('click', () => {
   experiencesContainer.innerHTML = '';
 });
 
-// Preview image 
+// Preview image
 photoInput.addEventListener('input', (e) => {
   const url = (e.target.value || '').trim();
   if (!url) { previewImg.classList.add('hidden'); previewImg.src = ''; return; }
@@ -73,3 +73,14 @@ addExpBtn.addEventListener('click', () => {
 clearExpsBtn.addEventListener('click', () => experiencesContainer.innerHTML = '');
 
 window.createExperienceNode = createExperienceNode;
+
+
+// -------------------------
+// VALIDATIONS REGEX
+// -------------------------
+window.validators = {
+  name: (v) => /^[a-zA-Z]{2,}(?:\s[a-zA-Z]{2,}){1,2}$/.test(v),   //validation rule confirmed
+  email: (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v),
+  phone: (v) => /^(?:0[67])[0-9]{8}$/.test(v),   //validation rule confirmed
+  photo: (v) => /\.(jpg|jpeg|png|gif|webp)$/i.test(v),
+};

@@ -128,8 +128,8 @@ function createZoneCard(emp, zoneKey) {
     </div>
 
     <div class="flex gap-2">
-      <button class="editBtn text-blue-600 text-sm">✏️Edit</button>
-      <button class="deleteBtn text-red-600 text-sm">🗑️Delete</button>
+      <button class="editBtn text-blue-600 text-sm">✏️</button>
+      <button class="deleteBtn text-red-600 text-sm">🗑️</button>
       <button class="removeBtn text-red-600">X</button>
     </div>
   `;
