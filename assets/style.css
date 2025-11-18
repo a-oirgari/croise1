@@ -72,9 +72,7 @@ span {
 
 
 
-/* ======================================================= */
 
-/* ======================================================= */
 /* Rotation de la photo dans le background uniquement en mobile */
 @media screen and (max-width: 768px) {
   main {
