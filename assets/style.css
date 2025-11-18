@@ -4,12 +4,10 @@ main {
   background-size: 100% 100%;
   background-repeat: no-repeat;
   display: grid;
-  /* grid-template-columns: minmax(345px, 1fr) 135px repeat(2, minmax(95px, 1fr));
-  grid-template-rows: repeat(3, 1fr); */
   width: 100%;
   gap: 12px;
-  /* margin-right: 12px; */
   
+
   grid-template-areas:
     "zone-conference zone-conference . zone-serveurs zone-securite"
     "zone-reception zone-reception . . . "
@@ -18,12 +16,14 @@ main {
 
 #zone-conference {
   grid-area: zone-conference;
-  background-color: rgba(248, 251, 253,0);
+  background-color: rgba(248, 251, 253, 0);
   width: 100%;
 }
-span{
+
+span {
   text-shadow: 2px 2px 10px white;
 }
+
 #zone-reception {
   grid-area: zone-reception;
   background-color: rgba(249, 175, 175, 0);
@@ -44,7 +44,7 @@ span{
 
 #zone-personnel {
   grid-area: zone-personnel;
-  background-color: rgba(248, 251, 253,0);
+  background-color: rgba(248, 251, 253, 0);
   width: 100%;
 }
 
@@ -53,3 +53,52 @@ span{
   background-color: rgba(249, 175, 175, 0);
   width: 100%;
 }
+
+/* Classe pour rendre la carte plus petite dans la zone */
+.small-card {
+  width: 150px;
+  /* Taille réduite de la carte */
+  font-size: 0.875rem;
+  /* Réduire la taille du texte */
+  padding: 8px;
+  /* Réduire le padding */
+}
+
+.small-card img {
+  width: 32px;
+  /* Image plus petite */
+  height: 32px;
+}
+
+
+
+/* ======================================================= */
+
+/* ======================================================= */
+/* Rotation de la photo dans le background uniquement en mobile */
+@media screen and (max-width: 768px) {
+  main {
+    transform: rotate(90deg);
+    transform-origin: center center;
+    width: 100vh;
+    height: 100vw;
+    margin-top: 1rem;
+  }
+
+  /* Applique une rotation de 90° uniquement à l'image de fond */
+  main {
+    background-image: url(./img/prov.jpg);
+    background-position: center;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    transform: rotate(90deg);
+    /* Rotation uniquement pour l'image */
+  }
+
+  /* Empêcher les textes des zones de tourner */
+  main .zone-label {
+    transform: rotate(-90deg);
+    display: inline-block;
+  }
+}
+
