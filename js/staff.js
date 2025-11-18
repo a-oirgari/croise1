@@ -1,5 +1,5 @@
-let employees = []; 
-let editMode = null; 
+let employees = [];
+let editMode = null;
 
 const unassignedList = document.getElementById('unassignedList');
 const addForm = document.getElementById('addEmployeeForm');
@@ -15,32 +15,50 @@ function collectExperiences() {
   return Array.from(document.querySelectorAll('#experiences input')).map(i => i.value).filter(Boolean);
 }
 
-
 addForm.addEventListener('submit', (e) => {
   e.preventDefault();
 
+  // ---------------- VALIDATIONS ----------------
+  const name = document.getElementById('name').value.trim();
+  const role = document.getElementById('role').value.trim();
+  const photo = document.getElementById('photo').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+
+  if (!window.validators.name(name)) return alert("Nom invalide (lettres uniquement)");
+  if (email && !window.validators.email(email)) return alert("Email invalide");
+  if (phone && !window.validators.phone(phone)) return alert("Téléphone invalide (8 à 15 chiffres)");
+  if (photo && !window.validators.photo(photo)) return alert("URL photo invalide (jpg/png/webp)");
+
+  // Vérification dates expériences
+  const expNodes = document.querySelectorAll('#experiences > div');
+  for (let node of expNodes) {
+    const [from, to] = node.querySelectorAll('input[type="date"]');
+    if (from.value && to.value && from.value > to.value) {
+      return alert("Une expérience a une date de début supérieure à la date de fin.");
+    }
+  }
+
   if (editMode) {
-    // MODE ÉDITION
     const emp = employees.find(e => e.id === editMode);
 
-    emp.name = document.getElementById('name').value.trim();
-    emp.role = document.getElementById('role').value.trim();
-    emp.photo = document.getElementById('photo').value.trim();
-    emp.email = document.getElementById('email').value.trim();
-    emp.phone = document.getElementById('phone').value.trim();
+    emp.name = name;
+    emp.role = role;
+    emp.photo = photo;
+    emp.email = email;
+    emp.phone = phone;
     emp.experiences = collectExperiences();
 
-    editMode = null; // reset mode
+    editMode = null;
 
   } else {
-    // MODE AJOUT
     const emp = {
       id: generateId(),
-      name: document.getElementById('name').value.trim(),
-      role: document.getElementById('role').value.trim(),
-      photo: document.getElementById('photo').value.trim(),
-      email: document.getElementById('email').value.trim(),
-      phone: document.getElementById('phone').value.trim(),
+      name,
+      role,
+      photo,
+      email,
+      phone,
       experiences: collectExperiences(),
       zone: null,
     };
@@ -48,14 +66,11 @@ addForm.addEventListener('submit', (e) => {
     employees.push(emp);
   }
 
-  // FERMETURE PROPRE ET DÉFINITIVE
   document.getElementById('addModal').classList.add('hidden');
   addForm.reset();
   document.getElementById('experiences').innerHTML = '';
   document.getElementById('preview').classList.add('hidden');
   document.getElementById('preview').src = '';
-
-  
 
   renderUnassigned();
 });
@@ -94,6 +109,40 @@ function renderUnassigned() {
 }
 
 
+function createZoneCard(emp, zoneKey) {
+  const meta = window.zonesMeta[zoneKey];
+  const zoneEl = document.getElementById(meta.id);
+  const occ = zoneEl.querySelector('.zone-occupants');
+
+  const card = document.createElement('div');
+  card.className = 'bg-white p-2 rounded shadow flex items-center justify-between small-card';
+  card.dataset.id = emp.id;
+
+  card.innerHTML = `
+    <div class="flex items-center gap-2 cursor-pointer openProfileBtn">
+      <img src="${emp.photo}" class="w-8 h-8 rounded object-cover">
+      <div>
+        <div class="font-semibold text-sm">${emp.name}</div>
+        <div class="text-xs text-gray-600">${emp.role}</div>
+      </div>
+    </div>
+
+    <div class="flex gap-2">
+      <button class="editBtn text-blue-600 text-sm">✏️Edit</button>
+      <button class="deleteBtn text-red-600 text-sm">🗑️Delete</button>
+      <button class="removeBtn text-red-600">X</button>
+    </div>
+  `;
+
+  occ.appendChild(card);
+
+  card.querySelector('.openProfileBtn').addEventListener('click', () => openProfile(emp.id));
+  card.querySelector('.editBtn').addEventListener('click', () => editEmployee(emp.id));
+  card.querySelector('.deleteBtn').addEventListener('click', () => deleteEmployee(emp.id));
+  card.querySelector('.removeBtn').addEventListener('click', () => removeFromZone(emp.id, zoneKey));
+}
+
+
 function assignEmployeeToZone(empId, zoneKey) {
   const emp = employees.find(e => e.id === empId);
   if (!emp) return;
@@ -112,58 +161,24 @@ function assignEmployeeToZone(empId, zoneKey) {
     return;
   }
 
-  // Affectation à la zone
   emp.zone = zoneKey;
 
-  // Retirer l'employé de la liste (aside)
   const cardToRemove = document.querySelector(`[data-id="${emp.id}"]`);
   if (cardToRemove) {
-    cardToRemove.remove(); 
+    cardToRemove.remove();
   }
 
-  // Créer une carte réduite dans la zone
-  const card = document.createElement('div');
-  card.className = 'bg-white p-2 rounded shadow flex items-center justify-between small-card';  // petite carte
-  card.dataset.id = emp.id;
+  createZoneCard(emp, zoneKey);
 
-  card.innerHTML = `
-    <div class="flex items-center gap-2 cursor-pointer openProfileBtn">
-      <img src="${emp.photo}" class="w-8 h-8 rounded object-cover">  <!-- Image plus petite -->
-      <div>
-        <div class="font-semibold text-sm">${emp.name}</div>
-        <div class="text-xs text-gray-600">${emp.role}</div>
-      </div>
-    </div>
-
-    <div class="flex gap-2">
-      <button class="editBtn text-blue-600 text-sm">✏️Edit</button>
-      <button class="deleteBtn text-red-600 text-sm">🗑️Delete</button>
-      <button class="removeBtn text-red-600">X</button>
-    </div>
-  `;
-
-  occ.appendChild(card);
-
-  // Ajout des listeners pour les boutons
-  card.querySelector('.openProfileBtn').addEventListener('click', () => openProfile(emp.id));
-  card.querySelector('.editBtn').addEventListener('click', () => editEmployee(emp.id));
-  card.querySelector('.deleteBtn').addEventListener('click', () => deleteEmployee(emp.id));
-  card.querySelector('.removeBtn').addEventListener('click', () => removeFromZone(emp.id, zoneKey));
-
-  // Fermer le modal après l'assignation
   assignModal.classList.add('hidden');
 
-  // Rafraîchir les indicateurs de zone
   window.refreshZoneIndicators && window.refreshZoneIndicators();
 }
-
 
 
 function removeFromZone(empId, zoneKey) {
   const emp = employees.find(e => e.id === empId);
   emp.zone = null;
-  
-
 
   const zoneEl = document.getElementById(window.zonesMeta[zoneKey].id);
   const card = zoneEl.querySelector(`[data-id='${empId}']`);
@@ -203,7 +218,6 @@ closeProfile.addEventListener('click', () => profileModal.classList.add('hidden'
 function editEmployee(empId) {
   const emp = employees.find(e => e.id === empId);
 
-  // On active le mode édition
   editMode = empId;
 
   document.getElementById('name').value = emp.name;
@@ -232,8 +246,6 @@ function deleteEmployee(empId) {
   if (!confirm("Supprimer cet employé ?")) return;
 
   employees = employees.filter(e => e.id !== empId);
-  
-
 
   renderUnassigned();
   refreshAllZones();
@@ -247,7 +259,7 @@ function refreshAllZones() {
   });
 
   employees.filter(e => e.zone).forEach(emp => {
-    assignEmployeeToZone(emp.id, emp.zone);
+    createZoneCard(emp, emp.zone);
   });
 
   window.refreshZoneIndicators();
