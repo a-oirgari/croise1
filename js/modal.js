@@ -74,6 +74,8 @@ clearExpsBtn.addEventListener('click', () => experiencesContainer.innerHTML = ''
 
 window.createExperienceNode = createExperienceNode;
 
+
+
 window.validators = {
   name: (v) => /^[a-zA-Z]{2,}(?:\s[a-zA-Z]{2,}){1,2}$/.test(v),   
   email: (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v),
