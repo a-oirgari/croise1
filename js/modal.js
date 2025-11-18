@@ -75,12 +75,9 @@ clearExpsBtn.addEventListener('click', () => experiencesContainer.innerHTML = ''
 window.createExperienceNode = createExperienceNode;
 
 
-// -------------------------
-// VALIDATIONS REGEX
-// -------------------------
 window.validators = {
-  name: (v) => /^[a-zA-Z]{2,}(?:\s[a-zA-Z]{2,}){1,2}$/.test(v),   //validation rule confirmed
+  name: (v) => /^[a-zA-Z]{2,}(?:\s[a-zA-Z]{2,}){1,2}$/.test(v),   
   email: (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v),
-  phone: (v) => /^(?:0[67])[0-9]{8}$/.test(v),   //validation rule confirmed
+  phone: (v) => /^(?:0[67])[0-9]{8}$/.test(v),   
   photo: (v) => /\.(jpg|jpeg|png|gif|webp)$/i.test(v),
 };
