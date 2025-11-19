@@ -273,7 +273,6 @@ function editEmployee(empId) {
   document.getElementById('addModal').classList.remove('hidden');
 }
 
-
 function deleteEmployee(empId) {
   if (!confirm("Supprimer cet employé ?")) return;
 
