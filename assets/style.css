@@ -54,19 +54,14 @@ span {
   width: 100%;
 }
 
-/* Classe pour rendre la carte plus petite dans la zone */
 .small-card {
   width: 150px;
-  /* Taille réduite de la carte */
   font-size: 0.875rem;
-  /* Réduire la taille du texte */
   padding: 8px;
-  /* Réduire le padding */
 }
 
 .small-card img {
   width: 32px;
-  /* Image plus petite */
   height: 32px;
 }
 
