@@ -16,7 +16,8 @@ main {
 
 #zone-conference {
   grid-area: zone-conference;
-  background-color: rgba(248, 251, 253, 0);
+  background-color: aqua;
+  /* background-color: rgba(248, 251, 253, 0); */
   width: 100%;
 }
 
@@ -26,36 +27,41 @@ span {
 
 #zone-reception {
   grid-area: zone-reception;
-  background-color: rgba(249, 175, 175, 0);
+  background-color: aqua;
+  /* background-color: rgba(249, 175, 175, 0); */
   width: 100%;
 }
 
 #zone-serveurs {
   grid-area: zone-serveurs;
-  background-color: rgba(249, 175, 175, 0);
+  background-color: aqua;
+  /* background-color: rgba(249, 175, 175, 0); */
   width: 100%;
 }
 
 #zone-securite {
   grid-area: zone-securite;
-  background-color: rgba(249, 175, 175, 0);
+  background-color: aqua;
+  /* background-color: rgba(249, 175, 175, 0); */
   width: 100%;
 }
 
 #zone-personnel {
   grid-area: zone-personnel;
-  background-color: rgba(248, 251, 253, 0);
+  background-color: aqua;
+  /* background-color: rgba(248, 251, 253, 0); */
   width: 100%;
 }
 
 #zone-archives {
   grid-area: zone-archives;
-  background-color: rgba(249, 175, 175, 0);
+  background-color: aqua;
+  /* background-color: rgba(249, 175, 175, 0); */
   width: 100%;
 }
 
 .small-card {
-  width: 150px;
+  width: 250px;
   font-size: 0.875rem;
   padding: 8px;
 }

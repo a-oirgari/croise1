@@ -52,104 +52,72 @@ function collectExperiences() {
 addForm.addEventListener('submit', (e) => {
   e.preventDefault();
 
-  // ---------------- VALIDATIONS ----------------
+  // Nettoyer erreurs visuelles
+  ['err-name','err-role','err-photo','err-email','err-phone'].forEach(id=>{
+    const el = document.getElementById(id);
+    if (el) el.textContent = "";
+  });
+
+  let hasError = false;
+
   const name = document.getElementById('name').value.trim();
   const role = document.getElementById('role').value.trim();
   const photo = document.getElementById('photo').value.trim();
   const email = document.getElementById('email').value.trim();
   const phone = document.getElementById('phone').value.trim();
 
-  // if (!window.validators.name(name)) return alert("Nom invalide (lettres uniquement)");
-  // if (email && !window.validators.email(email)) return alert("Email invalide");
-  // if (phone && !window.validators.phone(phone)) return alert("Téléphone invalide (8 à 15 chiffres)");
-  // if (photo && !window.validators.photo(photo)) return alert("URL photo invalide (jpg/png/webp)");
-
-
-
   // NAME
   if (!window.validators.name(name)) {
-    showError('name', "Nom invalide (lettres uniquement)");
+    document.getElementById('err-name').textContent = "Nom invalide (lettres uniquement)";
     hasError = true;
   }
 
-  // ROLE vide ?
-  if (role.length < 2) {
-    showError('role', "Le rôle doit contenir au moins 2 caractères");
+  // ROLE vide
+  if (!role || role.length < 2) {
+    document.getElementById('err-role').textContent = "Rôle invalide";
     hasError = true;
   }
 
   // EMAIL
   if (email && !window.validators.email(email)) {
-    showError('email', "Email invalide");
+    document.getElementById('err-email').textContent = "Email invalide";
     hasError = true;
   }
 
   // PHONE
   if (phone && !window.validators.phone(phone)) {
-    showError('phone', "phone invalide (must start with 06/07 et avoir 10 chiffres)");
+    document.getElementById('err-phone').textContent = "Téléphone invalide";
     hasError = true;
   }
 
   // PHOTO
   if (photo && !window.validators.photo(photo)) {
-    showError('photo', "URL photo invalide");
+    document.getElementById('err-photo').textContent = "URL photo invalide";
     hasError = true;
   }
 
-
-
-
-
-
-
-
-
-
-  // Vérification dates expériences
-  const expNodes = document.querySelectorAll('#experiences > div');
-  for (let node of expNodes) {
+  // EXPERIENCES - date "from" > "to"
+  document.querySelectorAll('#experiences > div').forEach(node => {
     const [from, to] = node.querySelectorAll('input[type="date"]');
-    if (from.value && to.value && from.value > to.value) {
-      return alert("Une expérience a une date de début supérieure à la date de fin.");
+
+    let err = node.querySelector('.exp-error');
+    if (!err) {
+      err = document.createElement('p');
+      err.className = 'exp-error text-red-600 text-sm';
+      node.appendChild(err);
     }
-  }
 
-  if (editMode) {
-    const emp = employees.find(e => e.id === editMode);
+    err.textContent = "";
 
-    emp.name = name;
-    emp.role = role;
-    emp.photo = photo;
-    emp.email = email;
-    emp.phone = phone;
-    emp.experiences = collectExperiences();
+    if (from.value && to.value && from.value > to.value) {
+      err.textContent = "La date de début ne peut pas dépasser la date de fin";
+      hasError = true;
+    }
+  });
 
-    editMode = null;
+  if (hasError) return; // STOP — empêche la soumission si erreurs
 
-  } else {
-    const emp = {
-      id: generateId(),
-      name,
-      role,
-      photo,
-      email,
-      phone,
-      experiences: collectExperiences(),
-      zone: null,
-    };
-
-    employees.push(emp);
-  }
-
-  document.getElementById('addModal').classList.add('hidden');
-  addForm.reset();
-  document.getElementById('experiences').innerHTML = '';
-  document.getElementById('preview').classList.add('hidden');
-  document.getElementById('preview').src = '';
-
-  renderUnassigned();
 });
-
 
 function createEmployeeNode(emp) {
   const li = document.createElement('li');

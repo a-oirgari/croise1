@@ -95,6 +95,8 @@
         <div>
           <label class="text-sm">Nom</label>
           <input id="name" required class="w-full border p-2 rounded mt-1" />
+          <p id="err-name" class="text-red-600 text-sm mt-1"></p>
+          
         </div>
         <div>
           <label class="text-sm">Rôle</label>
@@ -111,16 +113,19 @@
         <div>
           <label class="text-sm">Photo (URL)</label>
           <input id="photo" type="url" class="w-full border p-2 rounded mt-1" />
+          <p id="err-photo" class="text-red-600 text-sm mt-1"></p>
           <img id="preview" class="w-24 h-24 object-cover rounded mt-2 hidden" alt="preview" />
         </div>
         <div class="grid grid-cols-2 gap-2">
           <div>
             <label class="text-sm">Email</label>
             <input id="email" type="email" class="w-full border p-2 rounded mt-1" />
+            <p id="err-email" class="text-red-600 text-sm mt-1"></p>
           </div>
           <div>
             <label class="text-sm">Téléphone</label>
             <input id="phone" type="tel" class="w-full border p-2 rounded mt-1" />
+            <p id="err-phone" class="text-red-600 text-sm mt-1"></p>
           </div>
         </div>
 

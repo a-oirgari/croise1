@@ -7,6 +7,10 @@ const profileModal = document.getElementById('profileModal');
 const profileContent = document.getElementById('profileContent');
 const closeProfile = document.getElementById('closeProfile');
 
+
+
+
+
 function generateId() {
   return String(Date.now()) + Math.floor(Math.random() * 1000);
 }
@@ -38,12 +42,40 @@ addForm.addEventListener('submit', (e) => {
   const email = document.getElementById('email').value.trim();
   const phone = document.getElementById('phone').value.trim();
 
-  if (!window.validators.name(name)) return alert("Nom invalide (lettres uniquement)");
-  if (email && !window.validators.email(email)) return alert("Email invalide");
-  if (phone && !window.validators.phone(phone)) return alert("Téléphone invalide (8 à 15 chiffres)");
-  if (photo && !window.validators.photo(photo)) return alert("URL photo invalide (jpg/png/webp)");
+  let isValid = true;
+  if (!window.validators.name(name)){
+    document.getElementById('err-name').textContent = "Nom invalide ";
+    isValid = false;
+  } else {
+    document.getElementById('err-name').textContent = '';
+  }
 
-  // Vérification dates expériences
+  if (!window.validators.email(email)){
+    document.getElementById('err-email').textContent = "email invalid";
+    isValid = false;
+  } else {
+    document.getElementById('err-email').textContent = '';
+  }
+
+  if (!window.validators.phone(phone)){
+    document.getElementById('err-phone').textContent = "phone invalide";
+    isValid = false;
+  } else {
+    document.getElementById('err-phone').textContent = '';
+  }
+
+  if (!window.validators.photo(photo)){
+    document.getElementById('err-photo').textContent = "URL photo invalide (jpg/png/webp)";
+    isValid = false;
+  } else {
+    document.getElementById('err-photo').textContent = '';
+  }
+  
+  
+
+
+  if(isValid){
+    // Vérification dates expériences
   const expNodes = document.querySelectorAll('#experiences > div');
   for (let node of expNodes) {
     const [from, to] = node.querySelectorAll('input[type="date"]');
@@ -86,6 +118,7 @@ addForm.addEventListener('submit', (e) => {
   document.getElementById('preview').src = '';
 
   renderUnassigned();
+  }
 });
 
 
@@ -104,7 +137,7 @@ function createEmployeeNode(emp) {
 
     <div class="flex gap-2">
       <button class="editBtn text-blue-600 text-sm">Edit</button>
-      <button class="deleteBtn text-red-600 text-sm">Delet</button>
+      <button class="deleteBtn text-red-600 text-sm">Delete</button>
     </div>
   `;
 
@@ -141,8 +174,8 @@ function createZoneCard(emp, zoneKey) {
     </div>
 
     <div class="flex gap-2">
-      <button class="editBtn text-blue-600 text-sm">✏️</button>
-      <button class="deleteBtn text-red-600 text-sm">🗑️</button>
+      <button class="editBtn text-blue-600 text-sm">Edit</button>
+      <button class="deleteBtn text-red-600 text-sm">Delete</button>
 
 
 

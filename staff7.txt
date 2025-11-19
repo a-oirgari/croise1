@@ -8,24 +8,7 @@ const profileContent = document.getElementById('profileContent');
 const closeProfile = document.getElementById('closeProfile');
 
 
-/* ---------------------- UTILITAIRES ERREURS ---------------------- */
 
-function showError(fieldId, message) {
-  const err = document.getElementById('err-' + fieldId);
-  if (err) err.textContent = message;
-}
-
-function clearErrors() {
-  ['name', 'role', 'email', 'phone', 'photo'].forEach(id => {
-    const err = document.getElementById('err-' + id);
-    if (err) err.textContent = '';
-  });
-
-  // Effacer erreurs expériences
-  document.querySelectorAll('.exp-error').forEach(e => (e.textContent = ''));
-}
-
-/* ---------------------- UTILITAIRES ---------------------- */
 
 
 function generateId() {
@@ -59,47 +42,14 @@ addForm.addEventListener('submit', (e) => {
   const email = document.getElementById('email').value.trim();
   const phone = document.getElementById('phone').value.trim();
 
-  // if (!window.validators.name(name)) return alert("Nom invalide (lettres uniquement)");
-  // if (email && !window.validators.email(email)) return alert("Email invalide");
-  // if (phone && !window.validators.phone(phone)) return alert("Téléphone invalide (8 à 15 chiffres)");
-  // if (photo && !window.validators.photo(photo)) return alert("URL photo invalide (jpg/png/webp)");
+  if (!window.validators.name(name)) return alert("Nom invalide (lettres uniquement)");
+  if (email && !window.validators.email(email)) return alert("Email invalide");
+  if (phone && !window.validators.phone(phone)) return alert("Téléphone invalide (8 à 15 chiffres)");
+  if (photo && !window.validators.photo(photo)) return alert("URL photo invalide (jpg/png/webp)");
 
 
 
-  // NAME
-  if (!window.validators.name(name)) {
-    showError('name', "Nom invalide (lettres uniquement)");
-    hasError = true;
-  }
-
-  // ROLE vide ?
-  if (role.length < 2) {
-    showError('role', "Le rôle doit contenir au moins 2 caractères");
-    hasError = true;
-  }
-
-  // EMAIL
-  if (email && !window.validators.email(email)) {
-    showError('email', "Email invalide");
-    hasError = true;
-  }
-
-  // PHONE
-  if (phone && !window.validators.phone(phone)) {
-    showError('phone', "phone invalide (must start with 06/07 et avoir 10 chiffres)");
-    hasError = true;
-  }
-
-  // PHOTO
-  if (photo && !window.validators.photo(photo)) {
-    showError('photo', "URL photo invalide");
-    hasError = true;
-  }
-
-
-
-
-
+  
 
 
 
