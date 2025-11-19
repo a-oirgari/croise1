@@ -6,7 +6,7 @@ main {
   display: grid;
   width: 100%;
   gap: 12px;
-  
+
 
   grid-template-areas:
     "zone-conference zone-conference . zone-serveurs zone-securite"
@@ -74,30 +74,38 @@ span {
 
 
 
-/* Rotation de la photo dans le background uniquement en mobile */
+/* MOBILE : max-width 768px */
 @media screen and (max-width: 768px) {
+
   main {
-    transform: rotate(90deg);
-    transform-origin: center center;
-    width: 100vh;
-    height: 100vw;
-    margin-top: 1rem;
+    display: grid;
+    width: 100%;
+    gap: 10px;
+    padding: 10px;
+
+    /* Grille simple et lisible en mobile */
+    /* grid-template-areas:
+      "zone-conference"
+      "zone-reception"
+      "zone-serveurs"
+      "zone-securite"
+      "zone-personnel"
+      "zone-archives"; */
+    grid-template-areas:
+      "zone-conference zone-conference . zone-serveurs zone-securite"
+      "zone-reception zone-reception . . . "
+      "zone-reception zone-reception  .  zone-personnel  zone-archives ";
   }
 
-  /* Applique une rotation de 90° uniquement à l'image de fond */
+  
   main {
-    background-image: url(./img/prov.jpg);
-    background-position: center;
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    transform: rotate(90deg);
-    /* Rotation uniquement pour l'image */
+    transform: none !important;
+    height: auto;
+    width: 100%;
+    background-size: cover;
   }
 
-  /* Empêcher les textes des zones de tourner */
-  main .zone-label {
-    transform: rotate(-90deg);
-    display: inline-block;
+  .zone-label {
+    transform: none !important;
   }
 }
-
