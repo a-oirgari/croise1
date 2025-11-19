@@ -50,6 +50,8 @@ addForm.addEventListener('submit', (e) => {
     document.getElementById('err-name').textContent = '';
   }
 
+
+  
   if (!window.validators.email(email)){
     document.getElementById('err-email').textContent = "email invalid";
     isValid = false;
