@@ -92,16 +92,30 @@ function openAssignModal(zoneKey) {
 function refreshZoneIndicators() {
   Object.keys(zonesMeta).forEach(key => {
     const meta = zonesMeta[key];
-    const zoneLogical = document.getElementById(meta.id);
-    const occupants = zoneLogical ? zoneLogical.querySelector('.zone-occupants').children.length : 0;
+    const zoneEl = document.getElementById(meta.id);
+    const occupants = zoneEl.querySelector('.zone-occupants').children.length;
 
-    if (meta.required && occupants === 0 && key !== 'conference' && key !== 'personnel') {
-      zoneLogical && zoneLogical.classList.add('required-empty');
-    } else {
-      zoneLogical && zoneLogical.classList.remove('required-empty');
+    // Zones qui doivent être rouges si vides
+    const isMandatory = !['conference', 'personnel'].includes(key);
+
+    if (occupants > 0) {
+      // Zone remplie → couleur transparente
+      zoneEl.classList.add('zone-filled');
+      zoneEl.classList.remove('zone-empty');
+    } 
+    else {
+      // Zone vide
+      if (isMandatory) {
+        zoneEl.classList.add('zone-empty');
+      } else {
+        zoneEl.classList.remove('zone-empty');
+      }
+
+      zoneEl.classList.remove('zone-filled');
     }
   });
 }
+
 
 window.zonesMeta = zonesMeta;
 window.isEligibleForZone = isEligibleForZone;
