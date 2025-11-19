@@ -12,8 +12,21 @@ function generateId() {
 }
 
 function collectExperiences() {
-  return Array.from(document.querySelectorAll('#experiences input')).map(i => i.value).filter(Boolean);
+  const nodes = document.querySelectorAll('#experiences > div');
+
+  return Array.from(nodes).map(node => {
+    const [company, role] = node.querySelectorAll('input[type="text"]');
+    const [from, to] = node.querySelectorAll('input[type="date"]');
+
+    return {
+      company: company.value.trim(),
+      role: role.value.trim(),
+      from: from.value,
+      to: to.value
+    };
+  });
 }
+
 
 addForm.addEventListener('submit', (e) => {
   e.preventDefault();
@@ -130,6 +143,9 @@ function createZoneCard(emp, zoneKey) {
     <div class="flex gap-2">
       <button class="editBtn text-blue-600 text-sm">✏️</button>
       <button class="deleteBtn text-red-600 text-sm">🗑️</button>
+
+
+
       <button class="removeBtn text-red-600">X</button>
     </div>
   `;
@@ -190,6 +206,7 @@ function removeFromZone(empId, zoneKey) {
 
 function openProfile(empId) {
   const emp = employees.find(e => e.id === empId);
+
   profileContent.innerHTML = `
     <div class="flex gap-4">
       <img src="${emp.photo}" class="w-28 h-28 rounded object-cover" />
@@ -201,16 +218,24 @@ function openProfile(empId) {
         <div class="mt-2 text-sm">Localisation : <strong>${emp.zone || 'Unassigned'}</strong></div>
       </div>
     </div>
+
     <div class="mt-3">
       <h4 class="font-semibold">Expériences :</h4>
-      <ul class="list-disc ml-5 mt-1">
-        ${emp.experiences.map(e => `<li>${e}</li>`).join('')}
-      </ul>
+
+      <div class="space-y-2 mt-2">
+        ${emp.experiences.map(exp => `
+          <div class="p-2 bg-gray-100 rounded border">
+            <div><strong>${exp.company}</strong> — ${exp.role}</div>
+            <div class="text-sm text-gray-600">${exp.from} → ${exp.to}</div>
+          </div>
+        `).join('')}
+      </div>
     </div>
   `;
 
   profileModal.classList.remove('hidden');
 }
+
 
 closeProfile.addEventListener('click', () => profileModal.classList.add('hidden'));
 
@@ -233,10 +258,17 @@ function editEmployee(empId) {
   const expContainer = document.getElementById('experiences');
   expContainer.innerHTML = '';
   emp.experiences.forEach(exp => {
-    const node = window.createExperienceNode();
-    node.querySelectorAll('input')[0].value = exp;
-    expContainer.appendChild(node);
-  });
+  const node = window.createExperienceNode();
+  const inputs = node.querySelectorAll('input');
+
+  inputs[0].value = exp.company;
+  inputs[1].value = exp.role;
+  inputs[2].value = exp.from;
+  inputs[3].value = exp.to;
+
+  expContainer.appendChild(node);
+});
+
 
   document.getElementById('addModal').classList.remove('hidden');
 }
