@@ -1,4 +1,5 @@
-let employees = [];
+// let employees = [];
+window.employees = window.loadEmployees(); //localstorage
 let editMode = null;
 
 const unassignedList = document.getElementById('unassignedList');
@@ -119,6 +120,8 @@ addForm.addEventListener('submit', (e) => {
   document.getElementById('preview').classList.add('hidden');
   document.getElementById('preview').src = '';
 
+  window.saveEmployees(employees); // localestorage
+
   renderUnassigned();
   }
 });
@@ -230,6 +233,7 @@ function assignEmployeeToZone(empId, zoneKey) {
 function removeFromZone(empId, zoneKey) {
   const emp = employees.find(e => e.id === empId);
   emp.zone = null;
+  window.saveEmployees(employees); //localstorage
 
   const zoneEl = document.getElementById(window.zonesMeta[zoneKey].id);
   const card = zoneEl.querySelector(`[data-id='${empId}']`);
@@ -312,6 +316,7 @@ function deleteEmployee(empId) {
   if (!confirm("Supprimer cet employé ?")) return;
 
   employees = employees.filter(e => e.id !== empId);
+  window.saveEmployees(employees); //pour localestorage
 
   renderUnassigned();
   refreshAllZones();
