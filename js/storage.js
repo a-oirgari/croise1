@@ -6,11 +6,9 @@ function saveEmployees() {
 
 function loadEmployees() {
     const data = localStorage.getItem('employees');
-    if (data) {
-        return JSON.parse(data);
-    }
 
-    return [];
+
+    window.employees = data ? JSON.parse(data) : []
 
 }
 

@@ -1,5 +1,5 @@
 // let employees = [];
-window.employees = window.loadEmployees(); //localstorage
+window.loadEmployees(); //localstorage
 let editMode = null;
 
 const unassignedList = document.getElementById('unassignedList');
@@ -7,7 +7,7 @@ const addForm = document.getElementById('addEmployeeForm');
 const profileModal = document.getElementById('profileModal');
 const profileContent = document.getElementById('profileContent');
 const closeProfile = document.getElementById('closeProfile');
-
+renderUnassigned();
 
 
 
