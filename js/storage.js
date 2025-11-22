@@ -1,8 +1,9 @@
-// storage.js
 
-function saveEmployees() {
-    localStorage.setItem('employees', JSON.stringify(window.employees || []));
+function saveEmployees(list) {
+    localStorage.setItem('employees', JSON.stringify(list || []));
+    window.employees = list; // on synchronise aussi la variable globale
 }
+
 
 function loadEmployees() {
     const data = localStorage.getItem('employees');
